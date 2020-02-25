@@ -1,0 +1,32 @@
+{
+  "name": "@ddn/capistrano",
+  "version": "0.0.1",
+  "description": "capistranojs, deploy tools like capistrano.rb",
+  "main": "./lib/index.js",
+  "bin": {
+    "deploy": "./bin/capistrano"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddnlink/capistrano.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "father-build",
+    "doc:dev": "father doc dev"
+  },
+  "dependencies": {
+    "extend2": "^1.0.0",
+    "flightplan": "^0.6.20",
+    "moment": "^2.24.0",
+    "shelljs": "^0.8.3",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "father-build": "^1.17.2"
+  }
+}
