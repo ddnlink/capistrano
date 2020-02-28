@@ -1,7 +1,7 @@
 "use strict";
 import plan from "flightplan";
 
-function initFolders(name, config) {
+function initFolders(config) {
   const {
     application,
     deployTo,
@@ -11,7 +11,7 @@ function initFolders(name, config) {
   } = config;
   const targetPath = deployTo + application;
 
-  plan.remote(name, remote => {
+  plan.remote(remote => {
     remote.log("Remote start...");
 
     // 初始化路径

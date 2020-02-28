@@ -1,13 +1,16 @@
 "use strict";
 import plan from "flightplan";
 
-function current(name, config) {
+function current(config) {
   const { application, deployTo, currentDirectory } = config;
 
   const targetPath = deployTo + application;
   const currentPath = targetPath + "/" + currentDirectory;
 
-  plan.remote(name, remote => {
+  
+  plan.remote(remote => {
+    console.log("hi, current...");
+
     remote.log("Remote current ...");
 
     // /current 安装并处理链接
@@ -27,10 +30,10 @@ function current(name, config) {
         );
       }
       remote.log("yarn install...");
-      remote.exec("yarn");
+      remote.exec("yarn install --ignore-engines");
       remote.log("yarn build...");
-      // remote.exec('yarn build');
-      remote.log("yarn stating...");
+      remote.exec('yarn build');
+      // remote.log("yarn stating...");
     //   // remote.exec('yarn start');
 
     });

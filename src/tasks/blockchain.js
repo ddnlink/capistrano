@@ -10,7 +10,7 @@
  * 使用方法
  * 请严格按照下面的步骤执行
  * 1、单台部署
- * 使用  plan.target(name, [ips[0]])
+ * 使用  plan.target([ips[0]])
  * 运行 `npm run `
  */
 "use strict";
@@ -18,9 +18,9 @@
 import moment from "moment";
 import plan from "flightplan";
 import config from "../config";
-import initPath from "./initPath";
-import useServer from "./useServer";
-import upload from "./upload";
+import initPath from "../plans/initPath";
+import useServer from "../plans/useServer";
+import upload from "../plans/upload";
 
 const userConfig = config.userConfig;
 
@@ -36,12 +36,12 @@ function deployment(yargs) {
 
   const stage = argv._;
 
-  makePlan("blockchin", stage);
+  makePlan(stage);
 
-  plan.run("blockchin", "blockchin");
+  plan.run("default", "blockchin");
 }
 
-function makePlan(name, stage) {
+function makePlan(stage) {
   const {
     application,
     scm,
@@ -58,24 +58,20 @@ function makePlan(name, stage) {
   const targetPath = deployTo + application;
   const currentPath = targetPath + "/" + currentDirectory;
 
-  // console.log(userConfig);
-
   // 请先在服务器端建立该目录
-  plan.target(name, options.target);
-
-  console.log(plan.runtime);
+  plan.target(stage, options.target);
 
   // 远程 前端处理
-  initPath(name, userConfig);
+  initPath(userConfig);
 
   // 上传配置文件
-  upload(name, userConfig);
+  upload(userConfig);
 
   // 上传Nginx配置到服务器
-  useServer(name, userConfig);
+  useServer(userConfig);
 
-  // 克隆或pull代码
-  plan.remote(name, remote => {
+  // 与 current 有少许差别
+  plan.remote(remote => {
     const repoPath = targetPath + "/repo";
 
     remote.with(`cd ${repoPath}`, () => {
@@ -172,7 +168,7 @@ function makePlan(name, stage) {
   });
 
   // 构建、启动、停止等操作
-  plan.remote(name, remote => {
+  plan.remote(remote => {
     // /current 安装并处理链接
     remote.with(`cd ${currentPath}`, () => {
       // 初始化配置。注5：这里使用sudo命令，兼容localnet，本地需要使用命令行密码。

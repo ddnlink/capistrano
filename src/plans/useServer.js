@@ -1,16 +1,13 @@
 import plan from "flightplan";
 
-function useServer(name, userConfig) {
-    const {
-        application,
-        deployTo,
-      } = userConfig;
-    const targetPath = deployTo + application;
-  
+function useServer(userConfig) {
+  const { application, deployTo } = userConfig;
+  const targetPath = deployTo + application;
+
   if (userConfig.server && userConfig.server.name === "nginx") {
     // console.log(userConfig.server.name);
 
-    plan.local(name, local => {
+    plan.local(local => {
       local.log("Upload the server config ...");
       local.with("cd config/deploy", () => {
         local.transfer(
@@ -20,7 +17,7 @@ function useServer(name, userConfig) {
       });
     });
 
-    plan.remote(name, remote => {
+    plan.remote(remote => {
       remote.log("Link the config");
       // 这个是危险操作，建议确认之后再操作
       // remote.exec("rm -f /etc/nginx/sites-enabled/default");

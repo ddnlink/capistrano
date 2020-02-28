@@ -2,7 +2,7 @@
 
 import plan from "flightplan";
 import config from "../config";
-import current from './current';
+import current from '../plans/current';
 
 const userConfig = config.userConfig;
 
@@ -30,12 +30,12 @@ function rollback(yargs) {
   const command = argv._[0]; // command, stage
   const stage = argv._[1]; // command, stage
 
-  makePlan(command, stage);
+  makePlan(stage);
 
-  plan.run(command, command);
+  plan.run("default", stage);
 }
 
-function makePlan(name, stage) {
+function makePlan(stage) {
   const {
     application,
     deployTo,
@@ -49,9 +49,9 @@ function makePlan(name, stage) {
   // const currentPath = targetPath + "/" + currentDirectory;
 
   // 请先在服务器端建立该目录
-  plan.target(name, options.target);
+  plan.target(stage, options.target);
 
-  plan.remote(name, remote => {
+  plan.remote(remote => {
     // 获取前一个版本库
     remote.with(`cd ${targetPath}`, () => {
       const revisonsLog = `${targetPath}/revisions.log`;
@@ -68,7 +68,7 @@ function makePlan(name, stage) {
     });
   });
 
-  current(name, userConfig);
+  current(userConfig);
 }
 
 export default rollback;
