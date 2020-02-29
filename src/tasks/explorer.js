@@ -21,6 +21,7 @@ import initPath from "../plans/initPath";
 import current from "../plans/current";
 import clone from "../plans/clone";
 import useServer from "../plans/useServer";
+import sftp from "../plans/sftp";
 
 const userConfig = config.userConfig;
 
@@ -42,7 +43,6 @@ function deployment(yargs) {
 }
 
 function makePlan(stage) {
-
   const options = userConfig[stage];
 
   // 请先在服务器端建立该目录
@@ -51,11 +51,16 @@ function makePlan(stage) {
   // 远程 前端处理
   initPath(userConfig);
 
+  if (userConfig.scm === "sftp") {
+    // 直接将本地 build 的静态内容打包上传到 current
+    sftp(userConfig);
+  } else {
+    clone(userConfig);
+    current(userConfig);
+  }
+
   // 上传Nginx配置到服务器
   useServer(userConfig);
-
-  clone(userConfig);
-  current(userConfig);
 }
 
 export default deployment;
