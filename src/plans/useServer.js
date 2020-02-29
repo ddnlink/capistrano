@@ -23,7 +23,7 @@ function useServer(userConfig) {
       // remote.exec("rm -f /etc/nginx/sites-enabled/default");
       const nginxConfig = `${targetPath}/${userConfig.sharedDirectory}/${userConfig.server.configFile}`;
       remote.exec(
-        `if [! -f ${nginxConfig}]; then ln -s ${nginxConfig} /etc/nginx/sites-enabled/${userConfig.server.configFile}; fi`
+        `if [ ! -f ${nginxConfig} ]; then ln -s ${nginxConfig} /etc/nginx/sites-enabled/${userConfig.server.configFile}; fi`
       );
       remote.exec("sudo service nginx restart");
     });
