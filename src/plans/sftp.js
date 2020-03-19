@@ -13,18 +13,18 @@ function sftp(config) {
   });
 
   plan.local(local => {
-    local.exec("rm -rf ./dist.tar.gz");
+    // local.exec("rm -rf ./dist.tar.gz");
 
-    local.exec("tar zcf dist.tar.gz ./dist");
-    local.transfer("dist.tar.gz", currentPath);
+    // local.exec("tar zcf dist.tar.gz ./dist");
+    local.transfer("2.0.2/ddn-linux-2.0.2-mainnet.tar.gz", currentPath);
   });
 
-  plan.remote(remote => {
-    remote.with(`cd ${currentPath}`, () => {
-      remote.exec(`tar zxvf dist.tar.gz .`);
-      remote.exec(`rm dist.tar.gz`)
-    });
-  });
+  // plan.remote(remote => {
+  //   remote.with(`cd ${currentPath}`, () => {
+  //     remote.exec(`tar zxvf dist.tar.gz .`);
+  //     remote.exec(`rm dist.tar.gz`)
+  //   });
+  // });
 }
 
 export default sftp;

@@ -137,7 +137,39 @@ $ ssh -i path-to-pem root@your-id
 $ git clone repo_url 
 ```
 
-如果无法克隆，根据提升解决
+如果无法克隆，按照下列步骤操作
+
+```
+$ ssh -T git@github.com
+# git@github.com: Permission denied (publickey).
+```
+
+产生 ssh-key
+
+```
+$ ssh-keygen -t rsa -b 4096 -C 'your@email.com'
+$ cat ~/.ssh/id_rsa.pub
+```
+
+将产生的 公钥 拷贝到 版本库 -> deploy key 里
+
+3. `bash: yarn: command not found` 错误
+
+该错误是使用 nvm 安装的原因，只要下面两步
+
+```
+$ npm config set prefix /usr/local
+$ npm i -g yarn
+```
+
+4. `/usr/bin/env: ‘node’: No such file or directory`
+
+这也是 nvm 安装，导致没有命令行交互时出现的错误
+
+```
+$ which node
+$ ln -s /root/.nvm/versions/node/v10.19.0/bin/node /usr/bin
+```
 
 ## LICENSE
 

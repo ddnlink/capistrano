@@ -51,6 +51,9 @@ function makePlan(stage) {
   // 远程 前端处理
   initPath(userConfig);
 
+  // 上传Nginx配置到服务器
+  useServer(userConfig);
+  
   if (userConfig.scm === "sftp") {
     // 直接将本地 build 的静态内容打包上传到 current
     sftp(userConfig);
@@ -59,8 +62,6 @@ function makePlan(stage) {
     current(userConfig);
   }
 
-  // 上传Nginx配置到服务器
-  useServer(userConfig);
 }
 
 export default deployment;

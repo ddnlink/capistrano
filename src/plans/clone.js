@@ -27,7 +27,7 @@ function clone(config) {
 
       if (scm === "git") {
         remote.exec(
-          `if [ ! -f ${packageJson} ]; then git clone -b ${branch} ${repoUrl} . ; else git pull; fi`
+          `if [ ! -f ${packageJson} ]; then git clone -b ${branch} ${repoUrl} . ; else git pull origin ${branch}; fi`
         );
       }
 

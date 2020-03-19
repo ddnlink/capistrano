@@ -7,10 +7,7 @@ function current(config) {
   const targetPath = deployTo + application;
   const currentPath = targetPath + "/" + currentDirectory;
 
-  
   plan.remote(remote => {
-    console.log("hi, current...");
-
     remote.log("Remote current ...");
 
     // /current 安装并处理链接
