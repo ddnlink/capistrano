@@ -28,11 +28,15 @@ function current(config) {
       }
       remote.log("yarn install...");
       remote.exec("yarn install --ignore-engines");
-      remote.log("yarn build...");
-      remote.exec('yarn build');
-      // remote.log("yarn stating...");
-    //   // remote.exec('yarn start');
+      // remote.log("yarn build...");
+      // remote.exec('yarn build');
+      
+      // 迁移
+      remote.exec('NODE_ENV=production yarn run init');
 
+      // 重启服务
+      remote.exec('yarn stop');
+      remote.exec('yarn start');
     });
   });
 }
