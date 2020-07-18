@@ -38,7 +38,7 @@ function deployment(yargs) {
 
   makePlan(stage);
 
-  plan.run("default", "blockchin");
+  plan.run("default", "blockchain");
 }
 
 function makePlan(stage) {
@@ -52,6 +52,8 @@ function makePlan(stage) {
     keepReleases,
     currentDirectory
   } = userConfig;
+
+  console.log('application', application);
 
   const options = userConfig[stage];
 
@@ -106,7 +108,12 @@ function makePlan(stage) {
         `count=$(wc -l < ${revisonsPath}); if [ $count -gt ${keepReleases} ]; then sed -i '1d' ${revisonsPath}; fi`
       );
 
-      // 断开当前文件夹与前一版本的连接，然后建立对当前版本的软连接
+      // 断开当前文件夹与前一版本的连接，然后建立对当前版本的软连接（先要停止服务）
+      remote.log("ddnd stopping...");
+      remote.with(`cd ${currentPath}`, () => {
+        remote.exec("./ddnd stop");
+      })
+
       remote.exec(
         "rm -f " +
           currentDirectory +
@@ -119,8 +126,6 @@ function makePlan(stage) {
 
     // /current 安装并处理链接
     remote.with(`cd ${currentPath}`, () => {
-      remote.log("yarn stopping...");
-      remote.exec("./ddnd stop");
 
       remote.log("link shared folders and files...");
       // FIXME: 链接文件夹
@@ -179,10 +184,9 @@ function makePlan(stage) {
       });
 
       // 启动命令
-      remote.exec("./ddnd stop");
+      // remote.exec("./ddnd stop");
 
       remote.exec("./ddnd start");
-      // remote.exec('yarn start');
     });
   });
 }

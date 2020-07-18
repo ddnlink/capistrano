@@ -1,16 +1,16 @@
 import plan from "flightplan";
 
-function upload(name, userConfig) {
+function upload(userConfig) {
   const { application, deployTo } = userConfig;
   const targetPath = deployTo + application;
 
   let configFile;
 
-  plan.remote(name, remote => {
+  plan.remote(remote => {
     configFile = remote.runtime.config;
   });
 
-  plan.local(name, local => {
+  plan.local(local => {
     if (configFile) {
       console.log(`1 Upload config file ${configFile} for this `);
 

@@ -8,7 +8,7 @@ function Main() {
     .example("deploy prod", "deploy prod to the remote server")
     .help("h")
     .alias("h", "help")
-    .epilog("copyright 2020")
+    .epilog("copyright 2020-" + Date.now())
     .argv;
 
     // console.log("argv._ = ", argv._);
