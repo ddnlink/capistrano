@@ -108,11 +108,18 @@ function makePlan(stage) {
         `count=$(wc -l < ${revisonsPath}); if [ $count -gt ${keepReleases} ]; then sed -i '1d' ${revisonsPath}; fi`
       );
 
+      /**
+       *  第一次运行 是没有 currentPath 的，应该给一个参数, 暂时注释
+       */ 
       // 断开当前文件夹与前一版本的连接，然后建立对当前版本的软连接（先要停止服务）
       remote.log("ddnd stopping...");
+      remote.exec(`mkdir -p ${currentPath}`)  //
       remote.with(`cd ${currentPath}`, () => {
         remote.exec("./ddnd stop");
       })
+      /**
+       * 注释结束
+       */
 
       remote.exec(
         "rm -f " +
@@ -165,6 +172,8 @@ function makePlan(stage) {
 
       remote.log("yarn install...");
       remote.exec("yarn --registry https://registry.npmjs.org/");
+      // remote.exec("yarn add sqlite3");
+      // remote.exec("yarn sqlite3 --build-from-source  --registry=https://registry.npm.taobao.org");
 
       // 如果是静态文件，就可以构建一下
       // remote.log("yarn build...");
