@@ -37,9 +37,9 @@ function deployment(yargs) {
 
   const stage = argv._;
 
-  makePlan(stage); // stage == 'explorer'
+  makePlan(stage); // stage == 'website'
 
-  plan.run("default", "explorer"); // todo: 这里不能使用 stage 变量
+  plan.run("default", "website"); // todo: 这里不能使用 stage 变量
 }
 
 function makePlan(stage) {

@@ -22,20 +22,19 @@ function Main() {
     // 部署 DDN 区块链节点
     case "blockchain":
 
-    // 部署 DDN 区块链浏览器
-    case "explorer":
+    // 部署 DDN 区块链浏览器、DDN 文档等静态网站，需要在配置里 提供 本地构建命令
+    case "website":
     
     // 将部署回滚到前一个正常运行版本
     case "rollback":
+
+    // 部署类似 egg.js 后台应用程序
+    case "backend":
       require(`./tasks/${command}`).default(yargs);
       break;
 
-    // 部署类似 egg.js 后台应用程序
-    case "prod":
-      require(`./tasks/backend`).default(yargs);
-      break;
     default:
-      console.log("Please select a command: install, prod, blockchain ...");
+      console.log("Please select a command: install, backend, blockchain, website ...");
       break;
   }
 }
