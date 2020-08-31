@@ -12,7 +12,7 @@ function upload(userConfig) {
 
   plan.local(local => {
     if (configFile) {
-      console.log(`1 Upload config file ${configFile} for this `);
+      console.log(`Upload config file ${configFile} for this `);
 
       local.with("cd config/deploy", () => {
         // 先清理，不然不改变

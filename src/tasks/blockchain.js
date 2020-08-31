@@ -1,17 +1,5 @@
 /**
- * flightplan.js
- *
- * Please login your servers firstly before run the follow commands, for example:
- *
- * ```
- * ssh -i /path/to/your.pem root@yourIp
- * ```
- *
- * 使用方法
- * 请严格按照下面的步骤执行
- * 1、单台部署
- * 使用  plan.target([ips[0]])
- * 运行 `npm run `
+ * 本代码是从源码安装节点的方法，测试的时候可以使用
  */
 "use strict";
 
@@ -112,11 +100,11 @@ function makePlan(stage) {
        *  第一次运行 是没有 currentPath 的，应该给一个参数, 暂时注释
        */ 
       // 断开当前文件夹与前一版本的连接，然后建立对当前版本的软连接（先要停止服务）
-      // remote.log("ddnd stopping...");
+      remote.log("ddnd stopping...");
       remote.exec(`mkdir -p ${currentPath}`)  //
-      // remote.with(`cd ${currentPath}`, () => {
-      //   remote.exec("./ddnd stop");
-      // })
+      remote.with(`cd ${currentPath}`, () => {
+        remote.exec("./ddnd stop");
+      })
       /**
        * 注释结束
        */

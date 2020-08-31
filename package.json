@@ -1,6 +1,6 @@
 {
   "name": "@ddn/capistrano",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "capistranojs, deploy tools like capistrano.rb",
   "main": "./lib/index.js",
   "bin": {
