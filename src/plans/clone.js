@@ -15,8 +15,10 @@ function clone(config) {
   } = config;
 
   const targetPath = deployTo + application;
+  const currentPath = targetPath + "/" + currentDirectory;
 
   plan.remote(remote => {
+    remote.verbose()
     const repoPath = targetPath + "/repo";
 
     // 克隆或pull代码
@@ -52,9 +54,21 @@ function clone(config) {
         `count=$(wc -l < ${revisonsPath}); if [ $count -gt ${keepReleases} ]; then sed -i '1d' ${revisonsPath}; fi`
       );
 
+      // 停止服务，因为接下来 current 文件夹将被变更
+      remote.with(`cd ${currentPath}`, () => {
+        /**
+         * 保证node版本兼容性，这里应该放在系统初始化部分
+         * 
+         * 下面的脚本如果无法执行，说明用户的服务器 .bashrc 的配置需要修改以便交互，请参考下面的链接
+         * https://dhampik.com/blog/nodejs-deploy-nvm
+         */
+        remote.exec('nvm use default');
+        remote.exec('yarn stop');
+      });
+
       // 断开当前文件夹与前一版本的连接，然后建立对当前版本的软连接
       remote.exec(
-        "rm -f " +
+        "rm -rf " +
           currentDirectory +
           " && ln -s " +
           currentRepoPath +
