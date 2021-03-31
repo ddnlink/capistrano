@@ -4,7 +4,7 @@
 "use strict";
 
 import moment from "moment";
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 import config from "../config";
 import initPath from "../plans/initPath";
 import useServer from "../plans/useServer";

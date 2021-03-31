@@ -1,5 +1,5 @@
 "use strict";
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 import moment from "moment";
 
 function clone(config) {

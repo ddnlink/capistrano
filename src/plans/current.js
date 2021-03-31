@@ -1,5 +1,5 @@
 "use strict";
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 
 function current(config) {
   const { application, deployTo, currentDirectory } = config;

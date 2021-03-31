@@ -1,4 +1,4 @@
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 
 function uploadPeer(userConfig) {
   const { application, deployTo, uploadFileName } = userConfig;

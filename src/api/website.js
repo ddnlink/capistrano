@@ -15,7 +15,7 @@
  */
 "use strict";
 
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 import { defaultConfig } from "../default.config";
 import initPath from "../plans/initPath";
 import current from "../plans/current";
@@ -25,12 +25,28 @@ import sftp from "../plans/sftp";
 
 // 这里兼容命令行工具，一个参数的时候就是命令行工具
 function DeployWebsite(config) {
-  console.log('defaultConfig: ', defaultConfig);
+  // console.log('defaultConfig: ', defaultConfig);
   const userConfig = { ...defaultConfig, ...config };
-  console.log('userConfig: ', userConfig);
+  // console.log('userConfig: ', userConfig);
 
   makePlan(userConfig); // stage == 'website'
-  plan.run("default", "website"); // todo: 这里不能使用 stage 变量
+
+  /**
+   * 这里的上下文，是直接传给命令行的 run 方法，最终传给 new Shell() 或 new SSH()
+   * context: {
+   *  remote: {
+   *    host: 'locaohst',
+   *    failsafe: false,
+   *  },
+   *  options: {
+   *    debug: true,
+   *  },
+   * 
+   *  // 添加第三方方法
+   *  send: (data) => socket.send(data);
+   * }
+   */
+  plan.run("default", "website", userConfig.options); // todo: 这里不能使用 stage 变量
 }
 
 function makePlan(userConfig) {

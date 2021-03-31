@@ -10,7 +10,7 @@ const defaultConfig = {
     scm: "git",
     repoUrl: "yourRepoUrl",
     branch: "master", // default 'master'
-    linkedFiles: ["config.prod.js"], // config.prod.js
+    linkedFiles: [], // config.prod.js
     linkedDirs: ["node_modules", "logs"], // node_modules
     keepReleases: 5,
     tmpDir: "tmp",
@@ -18,10 +18,10 @@ const defaultConfig = {
     sharedDirectory: "shared",
     releasesDirectory: "releases",
     currentDirectory: "current",
-    server: {
-        name: "", // nginx
-        configFile: "" // nginx.conf
-    },
+    // server: {
+    //     name: "", // nginx
+    //     configFile: "" // nginx.conf
+    // },
     // TODO: 删除场景配置
     // test
     // test: {

@@ -1,4 +1,4 @@
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 
 function sftp(config) {
   const { application, deployTo, currentDirectory, buildCMD, packageFile } = config;

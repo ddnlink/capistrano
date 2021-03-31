@@ -10,7 +10,7 @@
 "use strict";
 
 import path from "path";
-import plan, { runtime } from "flightplan";
+import plan, { runtime } from "@ddn/flightplan";
 import config from "../config";
 import initPath from "../plans/initPath";
 import useServer from "../plans/useServer";

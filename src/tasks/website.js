@@ -15,7 +15,7 @@
  */
 "use strict";
 
-import plan from "flightplan";
+import plan from "@ddn/flightplan";
 import config from "../config";
 import initPath from "../plans/initPath";
 import current from "../plans/current";
